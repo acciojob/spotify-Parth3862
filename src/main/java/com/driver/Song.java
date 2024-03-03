@@ -4,7 +4,7 @@ public class Song {
     private String title;
     private int length;
     private int likes;
-
+    private Album album;
     public Song(){
 
     }
@@ -36,5 +36,13 @@ public class Song {
 
     public void setLikes(int likes) {
         this.likes = likes;
+    }
+
+    public Album getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(Album album) {
+        this.album = album;
     }
 }
