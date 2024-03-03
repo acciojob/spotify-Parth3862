@@ -4,14 +4,14 @@ public class Song {
     private String title;
     private int length;
     private int likes;
-    private Album album;
+
     public Song(){
 
     }
 
     public Song(String title, int length){
         this.title = title;
-        this.length = length;
+        this.length = length;//length
     }
 
     public String getTitle() {
@@ -36,13 +36,5 @@ public class Song {
 
     public void setLikes(int likes) {
         this.likes = likes;
-    }
-
-    public Album getAlbum() {
-        return album;
-    }
-
-    public void setAlbum(Album album) {
-        this.album = album;
     }
 }
