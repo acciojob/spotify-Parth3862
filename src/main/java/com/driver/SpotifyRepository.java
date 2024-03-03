@@ -199,11 +199,9 @@ public class SpotifyRepository {
         if (likedSong == null) {
             throw new Exception("Song not found");
         }
-
         if (user.hasLikedSong(likedSong)) {
             return likedSong;
         }
-
         List<User> likedByUsers = songLikeMap.getOrDefault(likedSong, new ArrayList<>());
         likedByUsers.add(user);
         songLikeMap.put(likedSong, likedByUsers);
@@ -235,7 +233,7 @@ public class SpotifyRepository {
         Map<Artist, Integer> artistLikes = new HashMap<>();
         for (Map.Entry<Song, List<User>> entry : songLikeMap.entrySet()) {
             Song song = entry.getKey();
-            Artist artist = getArtistOfSong(song);
+            Artist artist = ArtistOfSong(song);
             if (artist != null) {
                 int likes = entry.getValue().size();
                 artistLikes.put(artist, artistLikes.getOrDefault(artist, 0) + likes);
@@ -243,6 +241,18 @@ public class SpotifyRepository {
         }
         Artist mostPopularArtist = Collections.max(artistLikes.entrySet(), Map.Entry.comparingByValue()).getKey();
         return mostPopularArtist.getName();
+    }
+    private Artist ArtistOfSong(Song song) {
+        for (Map.Entry<Artist, List<Album>> entry : artistAlbumMap.entrySet()) {
+            List<Album> albums = entry.getValue();
+            for (Album album : albums) {
+                List<Song> songs = albumSongMap.get(album);
+                if (songs != null && songs.contains(song)) {
+                    return entry.getKey();
+                }
+            }
+        }
+        return null;
     }
 
     public String mostPopularSong() {
